@@ -1,14 +1,65 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
+  <ion-toolbar color="toolbar" >
+    <ion-buttons slot="start" >
+      <ion-button>
+        <ion-menu-button color="light"></ion-menu-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="text">
+      {{ section }}
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showFilters()">
+        <!-- <ion-icon color="light" name="cog"></ion-icon> -->
+        <img src="../../assets/icon/filter2.png">      
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+<ion-content color="background">
+  <ion-searchbar class="item" animated (ionChange)="searchNews($event)"></ion-searchbar>
+  <ion-chip *ngIf="publicationDate" color="tertiary">
+      <ion-label color="light">{{publicationDate  | date: 'dd/MM/yyyy' }} </ion-label>
+      <ion-icon (click)="closeFilter(1)"  color="light" name="close"></ion-icon>
+    </ion-chip>
+  <ion-chip *ngIf="orderBy" color="tertiary">
+    <ion-label color="light">{{orderBy}} </ion-label>
+    <ion-icon (click)="closeFilter(2)" color="light" name="close"></ion-icon>
+  </ion-chip>
+
+    
+  <ion-list *ngIf="loading || isSearching">
+    <ion-card *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+      <ion-card-header>
+        <ion-card-title>
+            <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item class="item">
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-badge *ngIf="section === 'News'" slot="end" color="tertiary">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-badge>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <ion-list *ngIf="news.length !== 0 && !isSearching && !loading ">
+    <ion-card *ngFor="let n of news">
+      <ion-card-header>
+        <ion-card-title>
+          {{ n.webTitle }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item class="item">
+          <ion-label>{{ n.webPublicationDate | date: 'dd/MM/yyyy' }}</ion-label>
+          <ion-badge *ngIf="section === 'News'" slot="end" color="tertiary">{{ n.sectionName }}</ion-badge>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-list>
 </ion-content>

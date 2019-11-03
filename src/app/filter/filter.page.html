@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon color="light" name="close"></ion-icon>
+      </ion-button>        
+    </ion-buttons>
+    <ion-title>Filters</ion-title>
+  </ion-toolbar>
+</ion-header >
+
+<ion-content color="background">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Order by
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-radio-group [(ngModel)]="selectedOrderBy">
+          <ion-item *ngFor="let entry of orderBy" class="item">
+            <ion-label>{{ entry.name}}</ion-label>
+            <ion-radio color="tertiary" value="{{ entry.value}}"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Publication date
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-datetime placeholder="Select a date" style="color: white" color="light" [(ngModel)]="selectedDate" name="date" displayFormat="DD/MM/YYYY"></ion-datetime>
+      </ion-card-content>
+    </ion-card>
+    <ion-button shape="round" expand="block" color="tertiary" (click)="filter()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-button>
+
+</ion-content>

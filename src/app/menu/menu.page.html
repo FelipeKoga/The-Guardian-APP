@@ -1,0 +1,20 @@
+<ion-menu side="start" menuId="menu" contentedId="menuContent">
+  <ion-header>
+    <ion-toolbar color="toolbar">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content color="card">
+    <ion-list color="card">
+      <ion-menu-toggle auto-hide="true">
+        <ion-item (click)="navigate(all)">All</ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true" *ngFor="let s of sections">
+        <!-- <ion-button color="light">{{ s.webTitle }}</ion-button> -->
+        <ion-item (click)="navigate(s)">{{ s.webTitle }}</ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main id="menuContent"></ion-router-outlet>
